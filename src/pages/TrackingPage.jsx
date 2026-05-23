@@ -1,11 +1,11 @@
+import Header from '../components/Header';
 import './TrackingPage.css';
-import './Header.css';
 
 function TrackingPage() {
-
   return (
     <>
       <title>Tracking</title>
+      <Header />
       <div className="header">
         <div className="left-section">
           <a href="/" className="header-link">
@@ -68,6 +68,5 @@ function TrackingPage() {
     </>
   );
 }
-
 
 export default TrackingPage;
