@@ -32,7 +32,7 @@ function CheckoutPage({ cart }) {
           <div className="checkout-header-middle-section">
             Checkout (
             <a className="return-to-home-link" href="/">
-              3 items
+              {cart.reduce((total, item) => total + item.quantity, 0)} items
             </a>
             )
           </div>
