@@ -4,16 +4,19 @@ import Header from '../../components/Header';
 import './HomePage.css';
 import ProductGrid from './ProductGrid';
 
-
-function HomePage({ cart }) {
+function HomePage({ cart, loadCartItems }) {
   const [products, setProducts] = useState([]);
- 
 
   useEffect(() => {
-    axios
-      .get('/api/products')
-      .then((response) => setProducts(response.data));
-    
+    const fecthProducts = async () => {
+      try {
+        const response = await axios.get('/api/products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fecthProducts();
   }, []);
 
   return (
@@ -22,7 +25,7 @@ function HomePage({ cart }) {
       <Header cart={cart} />
 
       <div className="home-page">
-        <ProductGrid  products={products} />
+        <ProductGrid products={products} loadCartItems={loadCartItems} />
       </div>
     </>
   );

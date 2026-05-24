@@ -1,11 +1,11 @@
 import Header from '../../components/Header';
 import './TrackingPage.css';
 
-function TrackingPage() {
+function TrackingPage({ cart }) {
   return (
     <>
       <title>Tracking</title>
-      <Header />
+      <Header cart={cart}/>
       <div className="header">
         <div className="left-section">
           <a href="/" className="header-link">
