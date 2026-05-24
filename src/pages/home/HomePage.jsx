@@ -25,7 +25,10 @@ function HomePage({ cart, loadCartItems }) {
       <Header cart={cart} />
 
       <div className="home-page">
-        <ProductGrid products={products} loadCartItems={loadCartItems} />
+        <ProductGrid
+          products={products}
+          loadCartItems={loadCartItems}
+        />
       </div>
     </>
   );
