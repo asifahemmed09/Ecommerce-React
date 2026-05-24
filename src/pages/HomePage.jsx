@@ -4,24 +4,26 @@ import Header from '../components/Header';
 import './HomePage.css';
 
 
-function HomePage() {
+function HomePage({ cart }) {
   const [products, setProducts] = useState([]);
+ 
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/products')
+      .get('/api/products')
       .then((response) => setProducts(response.data));
+    
   }, []);
 
   return (
     <>
       <title>Ecommerce Project</title>
-      <Header />
+      <Header cart={cart} />
 
       <div className="home-page">
         <div className="products-grid">
           {products.map((product) => (
-            <div className="product-container">
+            <div key={product.id} className="product-container">
               <div className="product-image-container">
                 <img className="product-image" src={product.image} />
               </div>
