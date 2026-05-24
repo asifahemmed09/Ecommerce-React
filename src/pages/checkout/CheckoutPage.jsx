@@ -7,13 +7,15 @@ import dayjs from 'dayjs';
 import DeliveryOptions from './DeliveryOptions';
 import PaymentSummary from './PaymentSummary';
 
-function CheckoutPage({ cart }) {
+function CheckoutPage({ cart, loadCartItems }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState({});
   useEffect(() => {
     const fetchDeliveryOptions = async () => {
       try {
-        const response = await axios.get('/api/delivery-options?expand=estimatedDeliveryTime');
+        const response = await axios.get(
+          '/api/delivery-options?expand=estimatedDeliveryTime'
+        );
         setDeliveryOptions(response.data);
       } catch (error) {
         console.error('Error fetching delivery options:', error);
@@ -21,7 +23,8 @@ function CheckoutPage({ cart }) {
     };
 
     fetchDeliveryOptions();
-
+  }, []);
+  useEffect(() => {
     const fetchPaymentSummary = async () => {
       try {
         const response = await axios.get('/api/payment-summary');
@@ -32,7 +35,8 @@ function CheckoutPage({ cart }) {
     };
 
     fetchPaymentSummary();
-  }, []);
+  }, [cart]);
+
   return (
     <>
       <title>Checkout</title>
@@ -110,6 +114,7 @@ function CheckoutPage({ cart }) {
                       <DeliveryOptions
                         deliveryOptions={deliveryOptions}
                         cartItem={cartItem}
+                        loadCartItems={loadCartItems}
                       />
                     </div>
                   </div>
