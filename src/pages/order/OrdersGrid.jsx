@@ -1,26 +1,11 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router';
-import { useEffect, useState, Fragment } from 'react';
-import axios from 'axios';
+import { formatMoney } from '../../utils/money';
 import dayjs from 'dayjs';
-import { formatMoney } from '../utils/money';
-import './OrderPage.css';
-import Header from '../components/Header';
 
-function OrderPage({ cart }) {
-  const [orders, setOrders] = useState([]);
-  useEffect(() => {
-    axios
-      .get('/api/orders?expand=products')
-      .then((response) => setOrders(response.data));
-  }, []);
+function OrdersGrid({ orders }) {
   return (
-    <>
-      <title>Orders</title>
-      <Header cart={cart} />
-      <div className="orders-page">
-        <div className="page-title">Your Orders</div>
-
-        <div className="orders-grid">
+    <div className="orders-grid">
           {orders.map((order) => (
             <div key={order.id} className="order-container">
               <div className="order-header">
@@ -78,9 +63,7 @@ function OrderPage({ cart }) {
             </div>
           ))}
         </div>
-      </div>
-    </>
-  );
+  )
 }
 
-export default OrderPage;
+export default OrdersGrid;
