@@ -73,6 +73,14 @@ function CheckoutPage({ cart, loadCartItems }) {
                 const estimatedDeliveryOptions = deliveryOptions.find(
                   (option) => option.id === cartItem.deliveryOptionId
                 );
+                const handleDeleteCartItem = async () => {
+                  try {
+                    await axios.delete(`/api/cart-items/${cartItem.ProductId}`);
+                  } catch (error) {
+                    console.error('Error deleting cart item:', error);
+                  }
+                  await loadCartItems();
+                };
                 return (
                   <div className="cart-item-container">
                     <div className="delivery-date">
@@ -105,7 +113,10 @@ function CheckoutPage({ cart, loadCartItems }) {
                           <span className="update-quantity-link link-primary">
                             Update
                           </span>
-                          <span className="delete-quantity-link link-primary">
+                          <span
+                            className="delete-quantity-link link-primary"
+                            onClick={handleDeleteCartItem}
+                          >
                             Delete
                           </span>
                         </div>
@@ -122,7 +133,7 @@ function CheckoutPage({ cart, loadCartItems }) {
               })}
           </div>
 
-          <PaymentSummary paymentSummary={paymentSummary} />
+          <PaymentSummary paymentSummary={paymentSummary} loadCartItems={loadCartItems} />
         </div>
       </div>
     </>
